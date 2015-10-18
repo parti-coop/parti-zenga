@@ -9,4 +9,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def show_in_browser
+    ShowInBrowser.show @response.body
+  end
+end
+
+class ActionController::TestCase
+  include Devise::TestHelpers
 end
