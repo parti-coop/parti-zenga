@@ -12,6 +12,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'haml-rails', '~> 0.9.0'
 gem 'devise', '~> 3.5.2'
+gem 'envyable', '~> 0.2.0'
 
 group :development, :test do
   gem 'byebug'
