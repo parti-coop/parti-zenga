@@ -2,3 +2,13 @@
 
 .issue
   .issue__title= @issue.title
+
+%section
+  %h2 제안목록
+  %ul.propositions
+    - @issue.propositions.each do |proposition|
+      .proposition
+        .proposition__title= proposition.title
+
+%ul.controll-group
+  %li= link_to '제안하기', new_issue_proposition_path(@issue)

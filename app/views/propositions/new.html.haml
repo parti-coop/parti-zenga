@@ -1,0 +1,7 @@
+%h1 제안하기
+
+= form_for [@issue, @proposition] do |f|
+  = render partial: 'shared/error_messages', locals: { object: @proposition }
+  = f.label :title
+  = f.text_field :title
+  = f.submit
