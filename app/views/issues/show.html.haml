@@ -7,8 +7,17 @@
   %h2 제안목록
   %ul.propositions
     - @issue.propositions.each do |proposition|
-      .proposition
+      %li.proposition
         .proposition__title= proposition.title
+  %ul.controll-group
+    %li= link_to '제안하기', new_issue_proposition_path(@issue)
 
-%ul.controll-group
-  %li= link_to '제안하기', new_issue_proposition_path(@issue)
+%section
+  %h2 타임라인
+  %ul.statuses
+    - @comments.each do |comment|
+      %li.status
+        .status__contents= comment.contents
+        %em.status__user= comment.user.email
+  = render partial: 'comments/new', locals: { comment: @new_comment }
+

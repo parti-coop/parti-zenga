@@ -9,18 +9,19 @@ class PropositionsController < ApplicationController
   def create
     @proposition = @issue.propositions.new(create_params)
     if @proposition.save
-      redirect_to issue
+      redirect_to @issue
     else
       render 'new'
     end
   end
 
   private
-    def issue
-      @issue = Issue.find params[:issue_id]
-    end
 
-    def create_params
-      params.require(:proposition).permit([:title])
-    end
+  def issue
+    @issue = Issue.find params[:issue_id]
+  end
+
+  def create_params
+    params.require(:proposition).permit([:title])
+  end
 end
