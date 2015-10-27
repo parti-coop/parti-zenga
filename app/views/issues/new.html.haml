@@ -1,0 +1,7 @@
+%h1 이슈만들기
+
+= form_for @issue do |f|
+  = render partial: 'shared/error_messages', locals: { object: @issue }
+  = f.label :title
+  = f.text_field :title
+  = f.submit

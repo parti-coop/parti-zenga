@@ -7,8 +7,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     get new_user_session_path
     assert_response :success
 
-    post new_user_session_path, user: { email: users(:user).email, :password => '12345678' }
-    follow_redirect!
+    log_in_as_user
     assert_equal root_path, path
     assert_select '.user--current__email', users(:user).email
 

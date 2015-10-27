@@ -1,0 +1,5 @@
+%h1 이슈리스트
+
+%ul
+  - @issues.each do |issue|
+    %li= link_to issue.title, issue

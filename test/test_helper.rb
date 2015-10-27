@@ -12,6 +12,11 @@ class ActiveSupport::TestCase
   def show_in_browser
     ShowInBrowser.show @response.body
   end
+
+  def log_in_as_user
+    post new_user_session_path, user: { email: users(:user).email, :password => '12345678' }
+    follow_redirect!
+  end
 end
 
 class ActionController::TestCase
