@@ -9,6 +9,7 @@
     - @issue.propositions.each do |proposition|
       %li.proposition
         .proposition__title= proposition.title
+        %em.status__user= proposition.user.email
   %ul.controll-group
     %li= link_to '제안하기', new_issue_proposition_path(@issue)
 

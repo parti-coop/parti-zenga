@@ -8,6 +8,7 @@ class PropositionsController < ApplicationController
 
   def create
     @proposition = @issue.propositions.new(create_params)
+    @proposition.user = current_user
     if @proposition.save
       redirect_to @issue
     else

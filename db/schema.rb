@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(version: 20151027033934) do
     t.datetime "updated_at",               null: false
   end
 
+  add_index "comments", ["issue_id"], name: "index_comments_on_issue_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
   create_table "issues", force: :cascade do |t|
     t.string   "title",      limit: 255, null: false
     t.datetime "created_at",             null: false
@@ -30,9 +33,13 @@ ActiveRecord::Schema.define(version: 20151027033934) do
   create_table "propositions", force: :cascade do |t|
     t.string   "title",      limit: 255, null: false
     t.integer  "issue_id",   limit: 4,   null: false
+    t.integer  "user_id",    limit: 4,   null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "propositions", ["issue_id"], name: "index_propositions_on_issue_id", using: :btree
+  add_index "propositions", ["user_id"], name: "index_propositions_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
