@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
     unless @comment.save
       flash[:error] = t('application.error')
     end
+
     redirect_to @issue
   end
 

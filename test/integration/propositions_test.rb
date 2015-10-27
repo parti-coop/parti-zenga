@@ -15,6 +15,7 @@ class PropositionsTest < ActionDispatch::IntegrationTest
 
     assert_equal assigns(:proposition).title, 'solution1'
     assert_equal assigns(:proposition).user, users(:user)
+    assert_equal assigns(:proposition).status.source, assigns(:proposition)
   end
 
   test "anonymous user cannot create a porposition" do

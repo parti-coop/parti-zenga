@@ -12,6 +12,7 @@ class CommentsTest < ActionDispatch::IntegrationTest
 
     assert_equal assigns(:comment).contents, 'content sample'
     assert_equal assigns(:comment).user, users(:user)
+    assert_equal assigns(:comment).status.source, assigns(:comment)
   end
 
   test "anonymous user cannot create a comment" do

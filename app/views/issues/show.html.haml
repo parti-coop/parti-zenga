@@ -16,9 +16,7 @@
 %section
   %h2 타임라인
   %ul.statuses
-    - @comments.each do |comment|
-      %li.status
-        .status__contents= comment.contents
-        %em.status__user= comment.user.email
+    - @statuses.each do |status|
+      = render status.source
   = render partial: 'comments/new', locals: { comment: @new_comment }
 

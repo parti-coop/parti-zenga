@@ -7,7 +7,7 @@ class IssuesController < ApplicationController
 
   def show
     @issue = Issue.find params[:id]
-    @comments = @issue.comments.all
+    @statuses = @issue.statuses.all
     @new_comment = @issue.comments.new
   end
 
