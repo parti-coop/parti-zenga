@@ -10,13 +10,15 @@
       %li.proposition
         .proposition__title= proposition.title
         %em.status__user= proposition.user.email
-  %ul.controll-group
-    %li= link_to '제안하기', new_issue_proposition_path(@issue)
+  - if user_signed_in?
+    %ul.controll-group
+      %li= link_to '제안하기', new_issue_proposition_path(@issue)
 
 %section
   %h2 타임라인
   %ul.statuses
     - @statuses.each do |status|
       = render status.source
-  = render partial: 'comments/new', locals: { comment: @new_comment }
+  - if user_signed_in?
+    = render partial: 'comments/new', locals: { comment: @new_comment }
 
