@@ -5,14 +5,25 @@ class Stand < ActiveRecord::Base
   has_one :issue, :through => :proposition
   include Statusable
 
-  enum choice: { in_favor: 1, oppose: 2, block: 3, abstain: 4 }
+  enum choice: { in_favor: 1, oppose: 2, block: 3, abstain: 4, retract: 5 }
 
   scope :current, -> { where(current: true) }
 
   validate :choice_cannot_be_same_with_previous
+
+  before_create :active_current
   after_create :deactive_previous
 
+  def available_choices(user)
+    result = self.class.choices
+    proposition.stand(user).try(:retract?) ? result.except('retract') : result
+  end
+
   private
+    def active_current
+      current = true
+    end
+
     def deactive_previous
       if previous.present?
         previous.current = false

@@ -14,7 +14,7 @@ class ActiveSupport::TestCase
   end
 
   def log_in_as_user
-    post new_user_session_path, user: { email: users(:user).email, :password => '12345678' }
+    post new_user_session_path, user: { email: users(:user).email, password: '12345678' }
     follow_redirect!
   end
 end

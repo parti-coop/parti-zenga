@@ -17,7 +17,7 @@
   = form_for [@proposition, @stand] do |f|
     = render partial: 'shared/error_messages', locals: { object: @stand }
     .form-group
-      - Stand.choices.keys.each do |choice|
+      - @stand.available_choices(current_user).keys.each do |choice|
         = f.radio_button :choice, choice
         = f.label choice.to_sym
     .form-group

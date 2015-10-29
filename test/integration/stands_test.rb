@@ -9,7 +9,7 @@ class StandsTest < ActionDispatch::IntegrationTest
     get new_proposition_stand_path issue_id: issue(:one), proposition_id: proposition(:solution1)
     assert_response :success
 
-    stand_in_favor
+    in_favor
     assert_redirected_to issue_path(issue(:one))
 
     assert_equal 'in_favor', assigns(:stand).choice
@@ -18,7 +18,7 @@ class StandsTest < ActionDispatch::IntegrationTest
 
     assert_equal assigns(:stand).status.source, assigns(:stand)
 
-    stand_oppose
+    oppose
     assert_equal 'oppose', assigns(:stand).choice
     assert_equal users(:user), assigns(:stand).user
     assert_equal 'oppose', fetch_current_stand.choice
@@ -29,7 +29,7 @@ class StandsTest < ActionDispatch::IntegrationTest
   test "same stands" do
     log_in_as_user
 
-    stand_in_favor
+    in_favor
     assert_redirected_to issue_path(issue(:one))
 
     assert_equal 'in_favor', assigns(:stand).choice
@@ -38,21 +38,21 @@ class StandsTest < ActionDispatch::IntegrationTest
 
     first_stand = fetch_current_stand
 
-    stand_in_favor
+    in_favor
     assert_equal first_stand, fetch_current_stand
   end
 
   test "current stands count" do
     log_in_as_user
 
-    stand_in_favor
+    in_favor
 
     first_count = proposition(:solution1).count_stands('in_favor')
-    stand_oppose
-    stand_in_favor
-    stand_oppose
+    oppose
+    in_favor
+    oppose
 
-    stand_in_favor
+    in_favor
     assert_equal first_count, proposition(:solution1).count_stands('in_favor')
   end
 
@@ -73,19 +73,37 @@ class StandsTest < ActionDispatch::IntegrationTest
   end
 
   test "anonymous user cannot create a stand" do
-    stand_in_favor
+    in_favor
     follow_redirect!
     assert_equal new_user_session_path, path
   end
 
-  def stand_in_favor
+  test "available choices" do
+    log_in_as_user
+    in_favor
+    stand = fetch_current_stand
+
+    new_stand = proposition(:solution1).stands.new
+    assert_equal Stand.choices.keys, new_stand.available_choices(users(:user)).keys
+
+    retract
+    new_stand = proposition(:solution1).stands.new
+    assert_equal Stand.choices.keys - ["retract"], new_stand.available_choices(users(:user)).keys
+  end
+
+  def in_favor
     post proposition_stands_path(proposition_id: proposition(:solution1),
                                  stand: { choice: 'in_favor' })
   end
 
-  def stand_oppose
+  def oppose
     post proposition_stands_path(proposition_id: proposition(:solution1),
                                  stand: { choice: 'oppose' })
+  end
+
+  def retract
+    post proposition_stands_path(proposition_id: proposition(:solution1),
+                                 stand: { choice: 'retract' })
   end
 
   def fetch_current_stand
