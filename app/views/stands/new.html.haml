@@ -1,0 +1,22 @@
+%h1 제안보기
+
+
+%section
+  %h2 이슈
+  .issue
+    .issue__title= @issue.title
+
+%section
+  %h2 제안
+  .proposition
+    .proposition__title= @proposition.title
+    %em.status__user= @proposition.user.email
+
+%section
+  %h2 투표하기
+  = form_for [@proposition, @stand] do |f|
+    = render partial: 'shared/error_messages', locals: { object: @stand }
+    - Stand.choices.keys.each do |choice|
+      = f.radio_button :choice, choice
+      = f.label choice.to_sym
+    = f.submit

@@ -9,6 +9,7 @@ class IssuesTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     post issues_path, issue: { title: 'three' }
+    assert_equal assigns(:issue).user, users(:user)
     assert_redirected_to issue_path(assigns(:issue))
   end
 

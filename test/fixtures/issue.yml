@@ -1,4 +1,6 @@
 one:
   title: 'one'
+  user: user
 two:
   title: 'two'
+  user: user

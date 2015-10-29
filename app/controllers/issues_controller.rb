@@ -17,6 +17,7 @@ class IssuesController < ApplicationController
 
   def create
     @issue = Issue.new(create_params)
+    @issue.user = current_user
     if @issue.save
       redirect_to @issue
     else

@@ -1,0 +1,6 @@
+%li.status
+  - unless stand.previous.present?
+    .status__contents 제안 "#{stand.proposition.title}"에 대해 "#{stand.choice}"합니다.
+  - else
+    .status__contents 제안 "#{stand.proposition.title}"에 대해 "#{stand.previous.choice}"에서 "#{stand.choice}"로 변경합니다.
+  %em.status__user= stand.user.email

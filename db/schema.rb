@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027071445) do
+ActiveRecord::Schema.define(version: 20151029051932) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "contents",   limit: 65535, null: false
@@ -26,9 +26,12 @@ ActiveRecord::Schema.define(version: 20151027071445) do
 
   create_table "issues", force: :cascade do |t|
     t.string   "title",      limit: 255, null: false
+    t.integer  "user_id",    limit: 4,   null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
   create_table "propositions", force: :cascade do |t|
     t.string   "title",      limit: 255, null: false
@@ -40,6 +43,19 @@ ActiveRecord::Schema.define(version: 20151027071445) do
 
   add_index "propositions", ["issue_id"], name: "index_propositions_on_issue_id", using: :btree
   add_index "propositions", ["user_id"], name: "index_propositions_on_user_id", using: :btree
+
+  create_table "stands", force: :cascade do |t|
+    t.integer  "choice",         limit: 4,                null: false
+    t.boolean  "current",                  default: true
+    t.integer  "previous_id",    limit: 4
+    t.integer  "proposition_id", limit: 4,                null: false
+    t.integer  "user_id",        limit: 4,                null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  add_index "stands", ["proposition_id"], name: "index_stands_on_proposition_id", using: :btree
+  add_index "stands", ["user_id"], name: "index_stands_on_user_id", using: :btree
 
   create_table "statuses", force: :cascade do |t|
     t.integer  "issue_id",    limit: 4,   null: false
