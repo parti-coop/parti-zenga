@@ -10,9 +10,18 @@ class CommentsTest < ActionDispatch::IntegrationTest
                              comment: { contents: 'content sample' })
     assert_redirected_to issue_path(issue(:one))
 
-    assert_equal assigns(:comment).contents, 'content sample'
-    assert_equal assigns(:comment).user, users(:user)
-    assert_equal assigns(:comment).status.source, assigns(:comment)
+    assert_equal 'content sample', assigns(:comment).contents
+    assert_equal users(:user), assigns(:comment).user
+    assert_equal assigns(:comment), assigns(:comment).status.source
+  end
+
+  test "comment with proposition" do
+    log_in_as_user
+
+    post issue_comments_path(issue_id: issue(:one),
+                             comment: { contents: 'content sample', proposition_id: proposition(:solution1) })
+    assert_redirected_to issue_path(issue(:one))
+    assert_equal proposition(:solution1), assigns(:comment).proposition
   end
 
   test "anonymous user cannot create a comment" do

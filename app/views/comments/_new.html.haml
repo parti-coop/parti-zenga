@@ -1,4 +1,5 @@
 = form_for [comment.issue, comment] do |f|
-  = f.label :contents
+  - if local_assigns[:proposition].present?
+    = f.hidden_field :proposition_id, value: proposition.id
   = f.text_area :contents
   = f.submit

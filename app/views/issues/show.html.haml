@@ -9,14 +9,15 @@
     - @issue.propositions.each do |proposition|
       %li.proposition
         .proposition__title= proposition.title
-        %em.status__user= proposition.user.email
+        %em.status__user -- #{proposition.user.email}
         .proposition__stands
-          \|
           - Stand.choices.keys.each do |choice|
             #{choice.to_sym} : #{proposition.count_stands(choice)}
             \|
-        .proposition__stand_taking
           = link_to '투표하기', new_proposition_stand_path(proposition)
+        - if user_signed_in?
+          .proposition__comment
+            = render partial: 'comments/new', locals: { comment: @new_comment, proposition: proposition }
 
   - if user_signed_in?
     %ul.controll-group
