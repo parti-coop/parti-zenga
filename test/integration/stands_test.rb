@@ -56,6 +56,22 @@ class StandsTest < ActionDispatch::IntegrationTest
     assert_equal first_count, proposition(:solution1).count_stands('in_favor')
   end
 
+  test "stands with comment" do
+    log_in_as_user
+
+    post proposition_stands_path(proposition_id: proposition(:solution1),
+                                 stand: { choice: 'in_favor' },
+                                 has_comment: 1,
+                                 comment: { contents: 'test comment1'} )
+    assert_equal 'test comment1', assigns(:comment).contents
+    assert_equal proposition(:solution1), assigns(:comment).proposition
+
+    post proposition_stands_path(proposition_id: proposition(:solution1),
+                                 stand: { choice: 'oppose' },
+                                 comment: { contents: 'test comment2'} )
+    assert_equal nil, assigns(:comment)
+  end
+
   test "anonymous user cannot create a stand" do
     stand_in_favor
     follow_redirect!

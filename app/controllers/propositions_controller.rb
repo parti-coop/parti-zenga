@@ -19,7 +19,7 @@ class PropositionsController < ApplicationController
   private
 
   def issue
-    @issue = Issue.find params[:issue_id]
+    @issue ||= Issue.find params[:issue_id]
   end
 
   def create_params

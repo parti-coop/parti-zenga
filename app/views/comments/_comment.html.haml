@@ -1,6 +1,6 @@
 %li.status
   .status__contents
     - if comment.proposition.present?
-      제안 "#{comment.proposition.title}"에 대해 의견있습니다.
+      [ 제안 "#{comment.proposition.title}" ]
     = comment.contents
   %em.status__user -- #{comment.user.email}
