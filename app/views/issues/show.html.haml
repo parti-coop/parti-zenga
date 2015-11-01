@@ -1,33 +1,43 @@
-%h1 이슈보기
+%section.breadcrumb-wrapper
+  %ol.breadcrumb
+    %li= link_to 'Home', root_path
+    %li.active= @issue.title
 
-.issue
-  .issue__title= @issue.title
+%section.issue
+  .panel.panel-default
+    .panel-heading
+      %h4= @issue.title
+    .panel-body
+      %p This is a longer description. This content is a little bit longer.
+      %small.text-muted by #{@issue.user.email}, #{@issue.created_at.today? ? time_ago_in_words(@issue.created_at) : @issue.created_at.to_date}
 
-%section
-  %h2 제안목록
-  %ul.propositions
-    - @issue.propositions.each do |proposition|
-      %li.proposition
-        .proposition__title= proposition.title
-        %em.status__user -- #{proposition.user.email}
-        .proposition__stands
-          - Stand.choices.keys.each do |choice|
-            #{choice.to_sym} : #{proposition.count_stands(choice)}
-            \|
-          = link_to '투표하기', new_proposition_stand_path(proposition)
-        - if user_signed_in?
-          .proposition__comment
-            = render partial: 'comments/new', locals: { comment: @new_comment, proposition: proposition }
+%section.container.issue__detail
+  .row
+    %section.propositions-wrapper.col-md-5
+      %h2 제안목록
+      %ul.propositions
+        - @issue.propositions.each do |proposition|
+          %li.proposition
+            .proposition__title= proposition.title
+            %em.status__user -- #{proposition.user.email}
+            .proposition__stands
+              - Stand.choices.keys.each do |choice|
+                #{choice.to_sym} : #{proposition.count_stands(choice)}
+                \|
+              = link_to '투표하기', new_proposition_stand_path(proposition)
+            - if user_signed_in?
+              .proposition__comment
+                = render partial: 'comments/new', locals: { comment: @new_comment, proposition: proposition }
 
-  - if user_signed_in?
-    %ul.controll-group
-      %li= link_to '제안하기', new_issue_proposition_path(@issue)
+      - if user_signed_in?
+        %ul.controll-group
+          %li= link_to '제안하기', new_issue_proposition_path(@issue)
 
-%section
-  %h2 타임라인
-  %ul.statuses
-    - @statuses.each do |status|
-      = render status.source
-  - if user_signed_in?
-    = render partial: 'comments/new', locals: { comment: @new_comment }
+    %section.statuses-wrapper.col-md-7
+      %h2 타임라인
+      - if user_signed_in?
+        = render partial: 'comments/new', locals: { comment: @new_comment }
+      %ul.statuses
+        - @statuses.each do |status|
+          = render status.source
 

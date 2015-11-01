@@ -1,5 +1,14 @@
-%h1 이슈리스트
-
-%ul
+%section.intro.jumbotron
+  .container
+    %h1.display-3 Let’s speak!!
+    %p.lead
+      = link_to 'Create issue', new_issue_path, class: 'btn btn-success navbar-btn'
+%section.issues_wrapper
   - @issues.each do |issue|
-    %li= link_to issue.title, issue
+    = link_to issue do
+      .issue.panel.panel-default
+        .panel-heading
+          %h4= issue.title
+        .panel-body
+          %p This is a longer description. This content is a little bit longer.
+          %small.text-muted by #{issue.user.email}, #{issue.created_at.today? ? time_ago_in_words(issue.created_at) : issue.created_at.to_date}
