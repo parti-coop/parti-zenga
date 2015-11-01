@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'pages#home'
+  root 'issues#index'
   resources :issues do
     resources :propositions, shallow: true do
       resources :stands

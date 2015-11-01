@@ -1,7 +1,13 @@
-%header
+%header.navbar.navbar-inverse.navbar-fixed-top
   .container
-    = link_to "Parti", root_path
-    %nav
-      %ul
-        %li= link_to "Home", root_path
-        %li= link_to "Issues", issues_path
+    .navbar-header
+      = link_to "Parti", root_path, class: 'navbar-brand'
+    %nav.navbar-right
+      - if user_signed_in?
+        %em.user--current__email.navbar-text= current_user.email
+        = link_to 'Create issue', new_issue_path, class: 'btn btn-success navbar-btn'
+        = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn btn-default navbar-btn'
+      - else
+        = link_to 'Sign up', new_user_registration_path, class: 'btn btn-success navbar-btn'
+        = link_to 'Log in', new_user_session_path, class: 'btn btn-default navbar-btn'
+
