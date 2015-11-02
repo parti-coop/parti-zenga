@@ -4,6 +4,7 @@ class StandsController < ApplicationController
   before_action :authenticate_user!
   before_action :issue
   before_action :proposition
+  before_action :prepare_commenting, only: :create
 
   def new
     new_stand

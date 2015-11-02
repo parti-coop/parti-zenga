@@ -1,11 +1,13 @@
-%li.status
+%li.status.status--comment-form
   .timeline-badge.primary
     %i.glyphicon.glyphicon-comment
   .timeline-panel
     .timeline-body.status__contents
       = form_for [comment.issue, comment] do |f|
         - if local_assigns[:proposition].present?
-          = f.hidden_field :proposition_id, value: proposition.id
+          .form-group
+            = f.hidden_field :proposition_id, value: proposition.id
+            .form-control-static [ 제안 "#{proposition.title}" ]
         .form-group
           = f.text_area :contents, class: 'form-control'
         = f.submit 'Add Comment', class: 'btn btn-default pull-right'

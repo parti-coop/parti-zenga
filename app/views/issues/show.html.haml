@@ -22,12 +22,11 @@
           .proposition__stands
             - Stand.choices.keys.each do |choice|
               #{choice.to_sym} : #{proposition.count_stands(choice)}
-              \|
+          .proposition__controll-group
             = link_to '투표하기', new_proposition_stand_path(proposition)
-          / - if user_signed_in?
-          /   .proposition__comment
-          /     = render partial: 'comments/new', locals: { comment: @new_comment, proposition: proposition }
-
+            - if user_signed_in?
+              \|
+              = link_to '의견달기', new_issue_comment_path(@issue, proposition_id: proposition), remote: true
     - if user_signed_in?
       %ul.controll-group
         %li= link_to '제안하기', new_issue_proposition_path(@issue)
