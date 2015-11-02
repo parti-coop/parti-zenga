@@ -21,10 +21,9 @@
         = f.radio_button :choice, choice
         = f.label choice.to_sym
     .form-group
-      = label_tag :has_comment, '의견도 게시합니다.'
-      = check_box_tag :has_comment
+      = f.label :has_description, data: { toggle: "collapse", target: "#stand_description"} do
+        = f.check_box :has_description
+        의견도 게시합니다.
     .form-group
-      = fields_for @comment do |comment_f|
-        = comment_f.hidden_field :proposition_id, value: @proposition.id
-        = comment_f.text_area :contents
+      = f.text_area :description, class: 'collapse'
     = f.submit

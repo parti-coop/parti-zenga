@@ -4,7 +4,7 @@ class Proposition < ActiveRecord::Base
   has_many :stands
   include Statusable
 
-  def stand(user)
+  def fetch_stand(user)
     stands.current.find_by(user: user)
   end
 

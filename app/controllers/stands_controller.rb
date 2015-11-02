@@ -1,35 +1,22 @@
 class StandsController < ApplicationController
-  include Commenting
-
   before_action :authenticate_user!
   before_action :issue
   before_action :proposition
-  before_action :prepare_commenting, only: :create
 
   def new
-    new_stand
-    new_comment
+    @stand = @proposition.stands.new
   end
 
   def create
-    unless has_stand_params?
-      new_stand
-      new_comment
-      render 'new'
-      return
-    end
-
-    previous_stand = @proposition.stand current_user
+    previous_stand = @proposition.fetch_stand current_user
 
     @stand = @proposition.stands.new(create_params)
     @stand.user = current_user
     @stand.previous = previous_stand
 
     if @stand.save
-      create_comment if params[:has_comment]
       redirect_to @issue
     else
-      new_comment
       render 'new'
     end
   end
@@ -49,14 +36,6 @@ class StandsController < ApplicationController
   end
 
   def create_params
-    params.require(:stand).permit([:choice])
-  end
-
-  def new_comment
-    @comment = @issue.comments.new
-  end
-
-  def new_stand
-    @stand = @proposition.stands.new
+    params.require(:stand).permit([:choice, :has_description, :description])
   end
 end

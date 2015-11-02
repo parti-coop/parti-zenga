@@ -56,20 +56,17 @@ class StandsTest < ActionDispatch::IntegrationTest
     assert_equal first_count, proposition(:solution1).count_stands('in_favor')
   end
 
-  test "stands with comment" do
+  test "stands with description" do
     log_in_as_user
 
     post proposition_stands_path(proposition_id: proposition(:solution1),
-                                 stand: { choice: 'in_favor' },
-                                 has_comment: 1,
-                                 comment: { contents: 'test comment1'} )
-    assert_equal 'test comment1', assigns(:comment).contents
-    assert_equal proposition(:solution1), assigns(:comment).proposition
+                                 stand: { choice: 'in_favor', has_description: 1, description: 'test description1'} )
+    assert_equal 'test description1', assigns(:stand).description
 
     post proposition_stands_path(proposition_id: proposition(:solution1),
-                                 stand: { choice: 'oppose' },
+                                 stand: { choice: 'oppose', has_description: 0, description: 'test description2' },
                                  comment: { contents: 'test comment2'} )
-    assert_equal nil, assigns(:comment)
+    assert_equal nil, assigns(:stand).description
   end
 
   test "anonymous user cannot create a stand" do
@@ -107,6 +104,6 @@ class StandsTest < ActionDispatch::IntegrationTest
   end
 
   def fetch_current_stand
-    proposition(:solution1).stand(users(:user))
+    proposition(:solution1).fetch_stand(users(:user))
   end
 end
