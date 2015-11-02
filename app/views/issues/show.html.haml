@@ -9,35 +9,34 @@
       %h4= @issue.title
     .panel-body
       %p This is a longer description. This content is a little bit longer.
-      %small.text-muted by #{@issue.user.email}, #{@issue.created_at.today? ? time_ago_in_words(@issue.created_at) : @issue.created_at.to_date}
+      %small.text-muted by #{@issue.user.email}, #{timeago_tag @issue.created_at}
 
 %section.container.issue__detail
-  .row
-    %section.propositions-wrapper.col-md-5
-      %h2 제안목록
-      %ul.propositions
-        - @issue.propositions.each do |proposition|
-          %li.proposition
-            .proposition__title= proposition.title
-            %em.status__user -- #{proposition.user.email}
-            .proposition__stands
-              - Stand.choices.keys.each do |choice|
-                #{choice.to_sym} : #{proposition.count_stands(choice)}
-                \|
-              = link_to '투표하기', new_proposition_stand_path(proposition)
-            - if user_signed_in?
-              .proposition__comment
-                = render partial: 'comments/new', locals: { comment: @new_comment, proposition: proposition }
+  %section.propositions-wrapper.col-md-5
+    %h2 제안목록
+    %ul.propositions
+      - @issue.propositions.each do |proposition|
+        %li.proposition
+          .proposition__title= proposition.title
+          %em.status__user -- #{proposition.user.email}
+          .proposition__stands
+            - Stand.choices.keys.each do |choice|
+              #{choice.to_sym} : #{proposition.count_stands(choice)}
+              \|
+            = link_to '투표하기', new_proposition_stand_path(proposition)
+          / - if user_signed_in?
+          /   .proposition__comment
+          /     = render partial: 'comments/new', locals: { comment: @new_comment, proposition: proposition }
 
-      - if user_signed_in?
-        %ul.controll-group
-          %li= link_to '제안하기', new_issue_proposition_path(@issue)
+    - if user_signed_in?
+      %ul.controll-group
+        %li= link_to '제안하기', new_issue_proposition_path(@issue)
 
-    %section.statuses-wrapper.col-md-7
-      %h2 타임라인
+  %section.col-md-7
+    %h2 타임라인
+    %ul.timeline.statuses
       - if user_signed_in?
         = render partial: 'comments/new', locals: { comment: @new_comment }
-      %ul.statuses
-        - @statuses.each do |status|
-          = render status.source
+      - @statuses.each do |status|
+        = render status.source
 

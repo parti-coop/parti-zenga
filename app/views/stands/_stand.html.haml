@@ -1,6 +1,17 @@
 %li.status
-  - unless stand.previous.present?
-    .status__contents [ 제안 "#{stand.proposition.title}" ] "#{stand.choice}"합니다.
-  - else
-    .status__contents [ 제안 "#{stand.proposition.title}" ] "#{stand.previous.choice}"에서 "#{stand.choice}"로 변경합니다.
-  %em.status__user -- #{stand.user.email}
+  .timeline-badge.info
+    %i.glyphicon.glyphicon-hand-down
+  .timeline-panel
+    .timeline-body.status__contents
+      %p
+        - unless stand.previous.present?
+          [ 제안 "#{stand.proposition.title}" ] "#{stand.choice}"합니다.
+        - else
+          [ 제안 "#{stand.proposition.title}" ] "#{stand.previous.choice}"에서 "#{stand.choice}"로 변경합니다.
+      %p
+        %small.text-muted
+          %i.glyphicon.glyphicon-user
+          %small= stand.user.email
+          %i.glyphicon.glyphicon-time
+          %small= timeago_tag stand.created_at
+

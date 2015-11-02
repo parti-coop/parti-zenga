@@ -11,4 +11,5 @@
           %h4= issue.title
         .panel-body
           %p This is a longer description. This content is a little bit longer.
-          %small.text-muted by #{issue.user.email}, #{issue.created_at.today? ? time_ago_in_words(issue.created_at) : issue.created_at.to_date}
+          %p= timeago_tag_content issue.created_at, nojs: true
+          %small.text-muted by #{issue.user.email}, #{timeago_tag issue.created_at}
