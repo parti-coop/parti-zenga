@@ -5,10 +5,16 @@
       = link_to 'Create issue', new_issue_path, class: 'btn btn-success navbar-btn'
 %section.issues_wrapper
   - @issues.each do |issue|
-    = link_to issue do
-      .issue.panel.panel-default
-        .panel-heading
+    .issue.panel.panel-default
+      .panel-heading
+        = link_to issue do
           %h4= issue.title
+        - if issue.related_proposition.present?
+          %h5
+            related
+            = link_to "이슈 \"#{issue.related_issue.title}\"", issue_path(issue.related_issue)
+            의 제안 "#{issue.related_proposition.title}"
+      = link_to issue do
         .panel-body
           %p This is a longer description. This content is a little bit longer.
           %p= timeago_tag_content issue.created_at, nojs: true

@@ -2,6 +2,7 @@ class Proposition < ActiveRecord::Base
   belongs_to :issue
   belongs_to :user
   has_many :stands
+  has_many :related_issues, class_name: Issue, foreign_key: :related_proposition_id
   include Statusable
 
   def fetch_stand(user)

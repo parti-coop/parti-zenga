@@ -18,6 +18,10 @@ class PropositionsTest < ActionDispatch::IntegrationTest
     assert_equal assigns(:proposition).status.source, assigns(:proposition)
   end
 
+  test "related proposition" do
+    assert_nil Issue.find(issue(:one).id).related_proposition
+  end
+
   test "anonymous user cannot create a porposition" do
     get new_issue_proposition_path issue_id: issue(:one)
     follow_redirect!
