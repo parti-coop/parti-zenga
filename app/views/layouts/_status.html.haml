@@ -1,0 +1,16 @@
+%li.status
+  .timeline-badge{class: "status--#{status.source_type.underscore}__badge"}
+  .timeline-panel
+    .timeline-body.status__contents
+      = yield
+    - status.replies.each do |reply|
+      .timeline-footer.status__reply
+        %p= reply.contents
+        %p
+          %small.text-muted
+            %i.glyphicon.glyphicon-user
+            %small= reply.user.email
+            %i.glyphicon.glyphicon-time
+            %small= timeago_tag reply.created_at
+    .timeline-footer
+      = render partial: 'replies/new', locals: { status: status, reply: status.replies.new }

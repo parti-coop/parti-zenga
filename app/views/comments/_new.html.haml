@@ -1,8 +1,8 @@
-%li.status.status--comment-form
+%li.status
   .timeline-badge.primary
     %i.glyphicon.glyphicon-comment
   .timeline-panel
-    .timeline-body.status__contents
+    .timeline-body
       = form_for [comment.issue, comment] do |f|
         - if local_assigns[:proposition].present?
           .form-group
@@ -11,3 +11,4 @@
         .form-group
           = f.text_area :contents, class: 'form-control'
         = f.submit 'Add Comment', class: 'btn btn-default pull-right'
+        .clearfix

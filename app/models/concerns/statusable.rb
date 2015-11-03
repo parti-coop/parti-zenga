@@ -6,6 +6,10 @@ module Statusable
     after_create :create_status
   end
 
+  def replies
+    status.replies
+  end
+
   private
 
   def create_status

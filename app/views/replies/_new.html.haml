@@ -1,0 +1,5 @@
+= form_for [status, reply] do |f|
+  .form-group
+    = f.text_area :contents, class: 'form-control'
+  = f.submit 'Reply', class: 'btn btn-default pull-right'
+  .clearfix

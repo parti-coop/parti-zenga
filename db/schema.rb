@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103000353) do
+ActiveRecord::Schema.define(version: 20151103144352) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "contents",       limit: 65535, null: false
@@ -47,6 +47,17 @@ ActiveRecord::Schema.define(version: 20151103000353) do
 
   add_index "propositions", ["issue_id"], name: "index_propositions_on_issue_id", using: :btree
   add_index "propositions", ["user_id"], name: "index_propositions_on_user_id", using: :btree
+
+  create_table "replies", force: :cascade do |t|
+    t.text     "contents",   limit: 65535, null: false
+    t.integer  "status_id",  limit: 4,     null: false
+    t.integer  "user_id",    limit: 4,     null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "replies", ["status_id"], name: "index_replies_on_status_id", using: :btree
+  add_index "replies", ["user_id"], name: "index_replies_on_user_id", using: :btree
 
   create_table "stands", force: :cascade do |t|
     t.integer  "choice",         limit: 4,                    null: false

@@ -1,0 +1,10 @@
+%p
+  - if source.proposition.present?
+    [ 제안 "#{source.proposition.title}" ]
+  = source.contents
+%p
+  %small.text-muted
+    %i.glyphicon.glyphicon-user
+    %small= source.user.email
+    %i.glyphicon.glyphicon-time
+    %small= timeago_tag source.created_at

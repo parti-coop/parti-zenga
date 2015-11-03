@@ -1,0 +1,25 @@
+.timeline-badge {
+  &.status--comment__badge {
+    @extend .timeline-badge.primary;
+    &:after {
+      font-family: "Glyphicons Halflings";
+      content: "\e111";
+    }
+  }
+
+  &.status--proposition__badge {
+    @extend .timeline-badge.warning;
+    &:after {
+      font-family: "Glyphicons Halflings";
+      content: "\e122";
+    }
+  }
+
+  &.status--stand__badge {
+    @extend .timeline-badge.info;
+    &:after {
+      font-family: "Glyphicons Halflings";
+      content: "\e129";
+    }
+  }
+}

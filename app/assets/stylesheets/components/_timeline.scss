@@ -37,7 +37,6 @@
       float: right;
       border: 1px solid #d4d4d4;
       border-radius: 2px;
-      padding: 20px;
       position: relative;
       -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
       box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
@@ -116,7 +115,10 @@
   color: inherit;
 }
 
-.timeline-body {
+.timeline-body,
+.timeline-footer {
+  padding: 20px;
+
   & > p,
   & > ul {
     margin-bottom: 0;
@@ -125,4 +127,8 @@
   & > p + p {
     margin-top: 5px;
   }
+}
+
+.timeline-footer {
+  border-top: 1px solid #eaeaea;
 }

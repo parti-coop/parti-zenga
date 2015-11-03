@@ -1,0 +1,7 @@
+%p 제안 "#{source.title}"을 올렸습니다.
+%p
+  %small.text-muted
+    %i.glyphicon.glyphicon-user
+    %small= source.user.email
+    %i.glyphicon.glyphicon-time
+    %small= timeago_tag source.created_at

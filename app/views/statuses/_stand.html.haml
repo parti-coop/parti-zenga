@@ -1,0 +1,13 @@
+%p
+  - unless source.previous.present?
+    [ 제안 "#{source.proposition.title}" ] "#{source.choice}"합니다.
+  - else
+    [ 제안 "#{source.proposition.title}" ] "#{source.previous.choice}"에서 "#{source.choice}"로 변경합니다.
+- if source.description.present?
+  %p= source.description
+%p
+  %small.text-muted
+    %i.glyphicon.glyphicon-user
+    %small= source.user.email
+    %i.glyphicon.glyphicon-time
+    %small= timeago_tag source.created_at
