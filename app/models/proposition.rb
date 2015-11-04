@@ -9,7 +9,17 @@ class Proposition < ActiveRecord::Base
     stands.current.find_by(user: user)
   end
 
-  def count_stands(choice)
+  def stands_count(choice)
     stands.try(choice).current.count
+  end
+
+  def has_stands?
+    stands.current.any?
+  end
+
+  def stands_count_as_percent(choice)
+    return 0 if stands_count(choice) == 0
+
+    stands_count(choice).to_f / issue.max_stands_count_in_propositions * 100
   end
 end

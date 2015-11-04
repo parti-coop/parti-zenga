@@ -16,33 +16,15 @@
       %p This is a longer description. This content is a little bit longer.
       %small.text-muted by #{@issue.user.email}, #{timeago_tag @issue.created_at}
 
-%section.container.issue__detail
+%section.container.issue__detail.row
   %section.propositions-wrapper.col-md-5
-    %h2 제안목록
-    %ul.propositions
+    %h2
+      - if user_signed_in?
+        = link_to '제안하기', new_issue_proposition_path(@issue), class: 'pull-right btn btn-default'
+      제안목록
+    .propositions
       - @issue.propositions.each do |proposition|
-        %li.proposition
-          .proposition__title= proposition.title
-          %em.status__user -- #{proposition.user.email}
-          .proposition__stands
-            - Stand.choices.keys.each do |choice|
-              #{choice.to_sym} : #{proposition.count_stands(choice)}
-          .proposition__controll-group
-            = link_to '투표하기', new_proposition_stand_path(proposition)
-            - if user_signed_in?
-              \|
-              = link_to '의견달기', new_issue_comment_path(@issue, proposition_id: proposition), remote: true
-          .proposition__controll-group--related_issue
-            이 제안에 대해 더 토론하고 싶습니다.
-            = link_to '관련 이슈 만들기', new_issue_path(related_proposition_id: proposition), class: 'btn btn-success navbar-btn'
-          .proposition__related_issues
-            %h7 관련 이슈
-            %ul
-              - proposition.related_issues.each do |issue|
-                %li= link_to issue.title, issue_path(issue)
-    - if user_signed_in?
-      %ul.controll-group
-        %li= link_to '제안하기', new_issue_proposition_path(@issue)
+        = render proposition
 
   %section.col-md-7
     %h2 타임라인

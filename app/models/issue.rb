@@ -10,4 +10,8 @@ class Issue < ActiveRecord::Base
   def related_issue
     related_proposition.try(:issue)
   end
+
+  def max_stands_count_in_propositions
+    20 # fake!
+  end
 end

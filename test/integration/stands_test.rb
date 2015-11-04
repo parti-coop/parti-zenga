@@ -16,14 +16,12 @@ class StandsTest < ActionDispatch::IntegrationTest
     assert_equal users(:user), assigns(:stand).user
     assert_equal 'in_favor', fetch_current_stand.choice
 
-    assert_equal assigns(:stand).status.source, assigns(:stand)
+    assert_equal assigns(:stand), assigns(:stand).status.source
 
     oppose
     assert_equal 'oppose', assigns(:stand).choice
     assert_equal users(:user), assigns(:stand).user
     assert_equal 'oppose', fetch_current_stand.choice
-
-    # assert_equal assigns(:stand).status.source, assigns(:proposition)
   end
 
   test "same stands" do
@@ -47,13 +45,13 @@ class StandsTest < ActionDispatch::IntegrationTest
 
     in_favor
 
-    first_count = proposition(:solution1).count_stands('in_favor')
+    first_count = proposition(:solution1).stands_count('in_favor')
     oppose
     in_favor
     oppose
 
     in_favor
-    assert_equal first_count, proposition(:solution1).count_stands('in_favor')
+    assert_equal first_count, proposition(:solution1).stands_count('in_favor')
   end
 
   test "stands with description" do

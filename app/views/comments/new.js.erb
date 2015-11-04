@@ -1,1 +1,2 @@
 $('.status--comment-form').replaceWith("<%= j (render partial: 'new', locals: { comment: @comment, proposition: @proposition }) %>");
+$("html, body").animate({ scrollTop: $(".issue__detail").offset().top - 60 }, "slow");

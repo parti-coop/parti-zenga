@@ -1,0 +1,31 @@
+.proposition__stands--graph {
+  height: 25px;
+  padding: 2px;
+  width: 350px;
+  margin: 5px 0;
+  background-color: #eeeeee;
+  font-size: 0;
+
+  @mixin graph_choice($color) {
+    background-color: $color;
+    display: inline-block;
+    height: 100%;
+  }
+
+  .proposition__stands--graph__choice--in_favor {
+    @include graph_choice(#3f903f);
+  }
+  .proposition__stands--graph__choice--oppose {
+    @include graph_choice(#f0ad4e);
+  }
+  .proposition__stands--graph__choice--block {
+    @include graph_choice(#d9534f);
+  }
+  .proposition__stands--graph__choice--abstain {
+    @include graph_choice(#8d6cc7);
+  }
+  .proposition__stands--graph__choice--retract {
+    @include graph_choice(#5bc0de);
+  }
+}
+
