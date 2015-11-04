@@ -16,8 +16,9 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
-$(document).ready(function(){
+$(document).on("ready page:change", function(){
 
+  console.log('test');
   $('.collapse').collapse();
   $('[data-toggle="tooltip"]').tooltip();
 
