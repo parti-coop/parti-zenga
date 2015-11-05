@@ -18,8 +18,6 @@
 
 $(document).on("ready page:change", function(){
 
-  console.log('test');
-  $('.collapse').collapse();
   $('[data-toggle="tooltip"]').tooltip();
 
 });
