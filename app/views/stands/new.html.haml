@@ -1,4 +1,4 @@
-%h1 투표하기
+%h1 입장
 
 %section
   %h2 이슈
@@ -12,7 +12,7 @@
     %em.status__user= @proposition.user.email
 
 %section
-  %h2 투표하기
+  %h2 나의 입장
   = form_for [@proposition, @stand] do |f|
     = render partial: 'shared/error_messages', locals: { object: @stand }
     .form-group
