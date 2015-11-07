@@ -18,8 +18,9 @@ class Stand < ActiveRecord::Base
   validate :choice_cannot_be_same_with_previous
 
   before_create :active_current
+  before_create :deactive_previous
   before_create :check_description
-  after_create :deactive_previous
+  after_create :increase_proposition_stands_count
 
   def available_choices(user)
     result = self.class.choices
@@ -31,24 +32,31 @@ class Stand < ActiveRecord::Base
   end
 
   private
-    def active_current
-      self.current = true
-    end
+  def active_current
+    self.current = true
+  end
 
-    def check_description
-      self.description = nil if self.has_description == "0"
-    end
+  def check_description
+    self.description = nil if self.has_description == "0"
+  end
 
-    def deactive_previous
-      if self.previous.present?
-        self.previous.current = false
-        self.previous.save!
-      end
+  def deactive_previous
+    if self.previous.present?
+      self.previous.current = false
+      self.previous.save!
     end
+  end
 
-    def choice_cannot_be_same_with_previous
-      if previous.try(:choice) == choice
-        errors.add(:choice, "should be different from previous choice.")
-      end
+  def choice_cannot_be_same_with_previous
+    if previous.try(:choice) == choice
+      errors.add(:choice, "should be different from previous choice.")
     end
+  end
+
+  def increase_proposition_stands_count
+    unless self.previous.present?
+      self.proposition.stands_count += 1
+      self.proposition.save!
+    end
+  end
 end

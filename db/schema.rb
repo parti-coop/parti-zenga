@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107014345) do
+ActiveRecord::Schema.define(version: 20151107072406) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "contents",       limit: 65535, null: false
@@ -49,11 +49,12 @@ ActiveRecord::Schema.define(version: 20151107014345) do
   add_index "links", ["url"], name: "index_links_on_url", using: :btree
 
   create_table "propositions", force: :cascade do |t|
-    t.string   "title",      limit: 255, null: false
-    t.integer  "issue_id",   limit: 4,   null: false
-    t.integer  "user_id",    limit: 4,   null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "title",        limit: 255,             null: false
+    t.integer  "issue_id",     limit: 4,               null: false
+    t.integer  "user_id",      limit: 4,               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "stands_count", limit: 4,   default: 0, null: false
   end
 
   add_index "propositions", ["issue_id"], name: "index_propositions_on_issue_id", using: :btree

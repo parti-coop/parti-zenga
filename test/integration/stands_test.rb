@@ -9,6 +9,7 @@ class StandsTest < ActionDispatch::IntegrationTest
     get new_proposition_stand_path issue_id: issue(:one), proposition_id: proposition(:solution1)
     assert_response :success
 
+    stands_count = proposition(:solution1).stands_count
     in_favor
     assert_redirected_to issue_path(issue(:one))
 
@@ -17,11 +18,14 @@ class StandsTest < ActionDispatch::IntegrationTest
     assert_equal 'in_favor', fetch_current_stand.choice
 
     assert_equal assigns(:stand), assigns(:stand).status.source
+    assert_equal stands_count + 1, proposition(:solution1).reload.stands_count
 
     oppose
     assert_equal 'oppose', assigns(:stand).choice
     assert_equal users(:user), assigns(:stand).user
     assert_equal 'oppose', fetch_current_stand.choice
+
+    assert_equal stands_count + 1, proposition(:solution1).reload.stands_count
   end
 
   test "same stands" do
@@ -45,13 +49,13 @@ class StandsTest < ActionDispatch::IntegrationTest
 
     in_favor
 
-    first_count = proposition(:solution1).stands_count('in_favor')
+    first_count = proposition(:solution1).stands_count_by('in_favor')
     oppose
     in_favor
     oppose
 
     in_favor
-    assert_equal first_count, proposition(:solution1).stands_count('in_favor')
+    assert_equal first_count, proposition(:solution1).stands_count_by('in_favor')
   end
 
   test "stands with description" do

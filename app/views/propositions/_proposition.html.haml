@@ -19,13 +19,13 @@
             %i.glyphicon.glyphicon-stats
             - if proposition.has_stands?
               - Stand.choices.keys.each do |choice|
-                - if proposition.stands_count(choice) > 0
-                  #{choice.to_sym} : #{proposition.stands_count(choice)}명
+                - if proposition.stands_count_by(choice) > 0
+                  #{choice.to_sym} : #{proposition.stands_count_by(choice)}명
             - else
               투표 현황이 없습니다.
         .proposition__stands--graph
           - Stand.choices.keys.each do |choice|
-            %span(class="proposition__stands--graph__choice--#{choice.to_sym}" style="width: #{proposition.stands_count_as_percent(choice.to_sym)}%" data-toggle="tooltip" data-placement="top" title="#{choice.to_sym} : #{proposition.stands_count(choice.to_sym)}명")
+            %span(class="proposition__stands--graph__choice--#{choice.to_sym}" style="width: #{proposition.stands_count_as_percent(choice.to_sym)}%" data-toggle="tooltip" data-placement="top" title="#{choice.to_sym} : #{proposition.stands_count_by(choice.to_sym)}명")
       .proposition__stands--current-user
         - if user_signed_in?
           나는

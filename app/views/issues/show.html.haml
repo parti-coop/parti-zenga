@@ -22,15 +22,19 @@
       - if user_signed_in?
         = link_to '주장하기', new_issue_proposition_path(@issue), class: 'pull-right btn btn-default'
       주장
-    .propositions
-      - @issue.propositions.each do |proposition|
-        = render proposition
+    - if @issue.propositions.any?
+      .propositions
+        - @propositions.each do |proposition|
+          = render proposition
+    - else
+      아직 주장이 없습니다.
 
-    %h2 링크
-    %ul.list-group.links
-      - @issue.links.each do |link|
-        %li.list-group-item
-          = render link
+    - if @issue.links.any?
+      %h2 링크
+      %ul.list-group.links
+        - @issue.links.each do |link|
+          %li.list-group-item
+            = render link
 
   %section.col-md-7
     %h2 타임라인
