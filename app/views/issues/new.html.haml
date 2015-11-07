@@ -3,7 +3,7 @@
 = form_for @issue do |f|
   = render partial: 'shared/error_messages', locals: { object: @issue }
   - if @related_proposition.present?
-    관련 : 이슈 "#{@related_issue.title}"의 제안 "#{@related_proposition.title}"
+    관련 : 이슈 "#{@related_issue.title}"의 주장 "#{@related_proposition.title}"
     = f.hidden_field :related_proposition_id, value: @related_proposition.id
   = f.label :title
   = f.text_field :title

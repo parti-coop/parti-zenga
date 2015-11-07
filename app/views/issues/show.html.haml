@@ -11,7 +11,7 @@
         %h5
           related
           = link_to "이슈 \"#{@issue.related_issue.title}\"", issue_path(@issue.related_issue)
-          의 제안 "#{@issue.related_proposition.title}"
+          의 주장 "#{@issue.related_proposition.title}"
     .panel-body
       %p This is a longer description. This content is a little bit longer.
       %small.text-muted by #{@issue.user.email}, #{timeago_tag @issue.created_at}
@@ -20,8 +20,8 @@
   %section.propositions-wrapper.col-md-5
     %h2
       - if user_signed_in?
-        = link_to '제안하기', new_issue_proposition_path(@issue), class: 'pull-right btn btn-default'
-      제안목록
+        = link_to '주장하기', new_issue_proposition_path(@issue), class: 'pull-right btn btn-default'
+      주장
     .propositions
       - @issue.propositions.each do |proposition|
         = render proposition

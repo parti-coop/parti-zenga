@@ -7,7 +7,7 @@
         - if local_assigns[:proposition].present?
           .form-group
             = f.hidden_field :proposition_id, value: proposition.id
-            .form-control-static [ 제안 "#{proposition.title}" ]
+            .form-control-static [ 주장 "#{proposition.title}" ]
         .form-group
           = f.text_area :contents, class: 'form-control'
         = f.submit 'Add Comment', class: 'btn btn-default pull-right'
