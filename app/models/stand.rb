@@ -1,10 +1,14 @@
 class Stand < ActiveRecord::Base
   include Statusable
+  include RelatedLinkable
 
   belongs_to :proposition
   belongs_to :user
   has_one :previous, class_name: :Stand, foreign_key: :previous_id
   has_one :issue, :through => :proposition
+  has_many :related_links, as: :source
+  has_many :links, through: :related_links
+
   attr_accessor :has_description
   enum choice: { in_favor: 1, oppose: 2, block: 3, abstain: 4, retract: 5 }
 
@@ -20,6 +24,10 @@ class Stand < ActiveRecord::Base
   def available_choices(user)
     result = self.class.choices
     proposition.fetch_stand(user).try(:retract?) ? result.except('retract') : result
+  end
+
+  def linkable_contents
+    description
   end
 
   private

@@ -15,6 +15,8 @@ gem 'devise', '~> 3.5.2'
 gem 'envyable', '~> 0.2.0'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.5.1'
 gem 'rails-timeago', '~> 2.12'
+gem 'link_thumbnailer', '~> 3.1'
+gem 'rails_autolink', '~> 1.1', '>= 1.1.6'
 
 group :development, :test do
   gem 'byebug'

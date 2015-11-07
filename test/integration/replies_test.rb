@@ -19,4 +19,18 @@ class CommentsTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_equal new_user_session_path, path
   end
+
+  test "replies with link" do
+    log_in_as_user
+
+    post status_replies_path(status_id: comment(:comment1).status, reply: { contents: 'reply sample http://ogp.me' })
+
+    assert_equal 'reply sample http://ogp.me', assigns(:reply).contents
+    assert_equal 'http://ogp.me', assigns(:reply).links[0].url
+    assert_equal 'Open Graph protocol', assigns(:reply).links[0].title
+    assert_equal 'The Open Graph protocol enables any web page to become a rich object in a social graph.',
+                 assigns(:reply).links[0].description
+    assert_equal 'http://ogp.me/logo.png',
+                 assigns(:reply).links[0].image
+  end
 end

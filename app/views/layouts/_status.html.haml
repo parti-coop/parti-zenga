@@ -3,14 +3,23 @@
   .timeline-panel
     .timeline-body.status__contents
       = yield
+    - if status.source.try(:related_links).try(:any?)
+      - status.source.links.each do |link|
+        - if link.has_meta?
+          .timeline-footer
+            = render link
     - status.replies.each do |reply|
-      .timeline-footer.status__reply
-        %p= reply.contents
-        %p
-          %small.text-muted
-            %i.glyphicon.glyphicon-user
-            %small= reply.user.email
-            %i.glyphicon.glyphicon-time
-            %small= timeago_tag reply.created_at
+      .timeline-footer
+        .status__reply
+          %p= auto_link reply.contents
+          %p
+            %small.text-muted
+              %i.glyphicon.glyphicon-user
+              %small= reply.user.email
+              %i.glyphicon.glyphicon-time
+              %small= timeago_tag reply.created_at
+      - reply.links.each do |link|
+        .timeline-footer
+          = render link
     .timeline-footer
       = render partial: 'replies/new', locals: { status: status, reply: status.replies.new }

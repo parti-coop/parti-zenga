@@ -26,6 +26,12 @@
       - @issue.propositions.each do |proposition|
         = render proposition
 
+    %h2 링크
+    %ul.list-group.links
+      - @issue.links.each do |link|
+        %li.list-group-item
+          = render link
+
   %section.col-md-7
     %h2 타임라인
     %ul.timeline.statuses

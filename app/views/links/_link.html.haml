@@ -1,0 +1,9 @@
+.link
+  - if link.image.present?
+    = image_tag link.image, class: 'link__image'
+  %p.link__title
+    = link_to link.title_or_url, link.url
+  - if link.description.present?
+    %p.link__description
+      = link.description
+  .clearfix

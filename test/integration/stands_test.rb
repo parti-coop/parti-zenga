@@ -67,6 +67,20 @@ class StandsTest < ActionDispatch::IntegrationTest
     assert_equal nil, assigns(:stand).description
   end
 
+  test "stands with links" do
+    log_in_as_user
+
+    post proposition_stands_path(proposition_id: proposition(:solution1),
+                                 stand: { choice: 'in_favor', has_description: 1, description: 'test description1 http://ogp.me'} )
+    assert_equal 'test description1 http://ogp.me', assigns(:stand).description
+    assert_equal 'http://ogp.me', assigns(:stand).links[0].url
+    assert_equal 'Open Graph protocol', assigns(:stand).links[0].title
+    assert_equal 'The Open Graph protocol enables any web page to become a rich object in a social graph.',
+                 assigns(:stand).links[0].description
+    assert_equal 'http://ogp.me/logo.png',
+                 assigns(:stand).links[0].image
+  end
+
   test "anonymous user cannot create a stand" do
     in_favor
     follow_redirect!

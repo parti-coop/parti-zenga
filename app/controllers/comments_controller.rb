@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
     @comment = @issue.comments.new(create_params)
     @comment.user = current_user
     @comment.proposition = @proposition
+
     unless @comment.save
       flash[:error] = t('application.error')
     end

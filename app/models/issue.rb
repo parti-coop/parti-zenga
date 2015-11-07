@@ -4,6 +4,8 @@ class Issue < ActiveRecord::Base
   has_many :comments
   belongs_to :user
   belongs_to :related_proposition, class_name: Proposition
+  has_many :related_links
+  has_many :links, ->{ distinct }, through: :related_links
 
   default_scope { order(id: :desc) }
 

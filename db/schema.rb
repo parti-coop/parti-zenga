@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103144352) do
+ActiveRecord::Schema.define(version: 20151107014345) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "contents",       limit: 65535, null: false
@@ -37,6 +37,17 @@ ActiveRecord::Schema.define(version: 20151103144352) do
   add_index "issues", ["related_proposition_id"], name: "index_issues_on_related_proposition_id", using: :btree
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
+  create_table "links", force: :cascade do |t|
+    t.string   "url",         limit: 255,   null: false
+    t.text     "title",       limit: 65535
+    t.text     "description", limit: 65535
+    t.text     "image",       limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "links", ["url"], name: "index_links_on_url", using: :btree
+
   create_table "propositions", force: :cascade do |t|
     t.string   "title",      limit: 255, null: false
     t.integer  "issue_id",   limit: 4,   null: false
@@ -47,6 +58,18 @@ ActiveRecord::Schema.define(version: 20151103144352) do
 
   add_index "propositions", ["issue_id"], name: "index_propositions_on_issue_id", using: :btree
   add_index "propositions", ["user_id"], name: "index_propositions_on_user_id", using: :btree
+
+  create_table "related_links", force: :cascade do |t|
+    t.integer "issue_id",    limit: 4,   null: false
+    t.integer "link_id",     limit: 4,   null: false
+    t.integer "source_id",   limit: 4,   null: false
+    t.string  "source_type", limit: 255, null: false
+  end
+
+  add_index "related_links", ["issue_id"], name: "index_related_links_on_issue_id", using: :btree
+  add_index "related_links", ["link_id"], name: "index_related_links_on_link_id", using: :btree
+  add_index "related_links", ["source_id", "link_id"], name: "index_related_links_on_source_id_and_link_id", unique: true, using: :btree
+  add_index "related_links", ["source_type", "source_id"], name: "index_related_links_on_source_type_and_source_id", using: :btree
 
   create_table "replies", force: :cascade do |t|
     t.text     "contents",   limit: 65535, null: false
