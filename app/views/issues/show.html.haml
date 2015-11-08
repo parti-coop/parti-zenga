@@ -9,9 +9,7 @@
       %h4= @issue.title
       - if @issue.related_proposition.present?
         %h5
-          related
-          = link_to "이슈 \"#{@issue.related_issue.title}\"", issue_path(@issue.related_issue)
-          의 주장 "#{@issue.related_proposition.title}"
+          이슈 #{link_to @issue.related_issue.title, @issue.related_issue}의 주장 #{link_to @issue.related_proposition.title, @issue.related_proposition}과 관련되어 있습니다.
     .panel-body
       %p This is a longer description. This content is a little bit longer.
       %span.text-muted
@@ -25,6 +23,7 @@
     %h2
       - if user_signed_in?
         = link_to '주장하기', new_issue_proposition_path(@issue), class: 'pull-right btn btn-default'
+      %i.glyphicon.glyphicon-bullhorn
       주장
     - if @issue.propositions.any?
       .propositions
@@ -34,14 +33,18 @@
       아직 주장이 없습니다.
 
     - if @issue.links.any?
-      %h2 링크
+      %h2
+        %i.glyphicon.glyphicon-paperclip
+        링크
       %ul.list-group.links
         - @issue.links.each do |link|
           %li.list-group-item
             = render link
 
   %section.col-md-7
-    %h2 타임라인
+    %h2
+      %i.glyphicon.glyphicon-list
+      타임라인
     %ul.timeline.statuses
       - if user_signed_in?
         = render partial: 'comments/new', locals: { comment: @new_comment }

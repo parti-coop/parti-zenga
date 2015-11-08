@@ -11,9 +11,7 @@
           %h4= issue.title
         - if issue.related_proposition.present?
           %h5
-            related
-            = link_to "이슈 \"#{issue.related_issue.title}\"", issue_path(issue.related_issue)
-            의 주장 "#{issue.related_proposition.title}"
+            이슈 #{link_to issue.related_issue.title, issue.related_issue}의 주장 #{link_to issue.related_proposition.title, issue.related_proposition}과 관련되어 있습니다.
       = link_to issue do
         .panel-body
           %p This is a longer description. This content is a little bit longer.
