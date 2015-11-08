@@ -1,7 +1,9 @@
 class Status < ActiveRecord::Base
   belongs_to :source, polymorphic: true
   belongs_to :issue
+  belongs_to :proposition, class_name: Proposition, foreign_key: :proposition_id
   has_many :replies
+
   default_scope { order(id: :desc) }
 
   def contents

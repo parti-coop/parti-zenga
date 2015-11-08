@@ -1,6 +1,6 @@
 %p
   - if source.proposition.present?
-    [ 주장 "#{source.proposition.title}" ]
+    [ 주장 #{link_to source.proposition.title, source.proposition} ]
   = auto_link source.contents
 %p
   %small.text-muted

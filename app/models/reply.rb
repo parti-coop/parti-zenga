@@ -13,4 +13,8 @@ class Reply < ActiveRecord::Base
   def issue
     status.issue
   end
+
+  def proposition
+    status.proposition
+  end
 end

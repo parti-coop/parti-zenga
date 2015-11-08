@@ -2,3 +2,8 @@ comment1:
   contents: 'comment1 contents'
   issue: one
   user: user
+comment2:
+  contents: 'comment2 contents'
+  issue: one
+  user: user
+  proposition: solution2

@@ -1,6 +1,13 @@
 class PropositionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :issue
+  before_action :issue, only: [:new, :create]
+
+  def show
+    @proposition = Proposition.find params[:id]
+    @issue = @proposition.issue
+    @new_comment = @issue.comments.new
+    @statuses = @proposition.statuses
+  end
 
   def new
     @proposition = @issue.propositions.new

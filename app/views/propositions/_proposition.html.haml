@@ -1,58 +1,40 @@
-.panel.panel-default.proposition
+.panel.panel-default
   .panel-heading
-    %p.proposition__title= proposition.title
-    %p
-      %small.text-muted
+    %p.proposition__title= link_to proposition.title, proposition
+    %span
+      - if user_signed_in?
+        %small.text-muted.pull-right
+          = link_to new_issue_comment_path(proposition.issue, proposition_id: proposition), remote: true do
+            %i.glyphicon.glyphicon-comment
+            의견달기
+      %small.text-muted.pull-left
         %i.glyphicon.glyphicon-user
         %small= proposition.user.email
         %i.glyphicon.glyphicon-time
         %small= timeago_tag proposition.created_at
-        - if user_signed_in?
-          = link_to new_issue_comment_path(proposition.issue, proposition_id: proposition), remote: true do
-            %i.glyphicon.glyphicon-comment
-            의견달기
-  %ul.list-group
-    .list-group-item
-      .proposition__stands
-        .proposition__stands--stats
-          %h5
-            %i.glyphicon.glyphicon-stats
-            - if proposition.has_stands?
-              관련 입장 :
-              = Stand.choices.keys.select { |choice| proposition.stands_count_by(choice) > 0 }.map { |choice| "#{choice.to_sym} #{proposition.stands_count_by(choice)}명" }.join(', ')
-            - else
-              관련 입장이 없습니다.
-        .proposition__stands--graph
-          - Stand.choices.keys.each do |choice|
-            %span(class="proposition__stands--graph__choice--#{choice.to_sym}" style="width: #{proposition.stands_count_as_percent(choice.to_sym)}%" data-toggle="tooltip" data-placement="top" title="#{choice.to_sym} : #{proposition.stands_count_by(choice.to_sym)}명")
-      .proposition__stands--current-user
-        - if user_signed_in?
-          나는 이 주장에 대해
-          - if proposition.fetch_stand(current_user).present?
-            #{proposition.fetch_stand(current_user).choice} 입장입니다.
-            = link_to '입장 바꾸기', new_proposition_stand_path(proposition)
-          - else
-            아직 입장을 밝히지 않았습니다.
-            = link_to '입장 밝히기', new_proposition_stand_path(proposition)
-    .list-group-item
-      .proposition__related_issues
-        %h5
-          %i.glyphicon.glyphicon-link
-          관련 이슈
         - if proposition.related_issues.any?
-          %ul.list-group
-            - proposition.related_issues.each do |issue|
-              %li.list-group-item
-                %p
-                  .proposition__related_issues--issues__title
-                    = link_to issue.title, issue_path(issue)
-                %p
-                  %small.text-muted
-                    %i.glyphicon.glyphicon-user
-                    %small= issue.user.email
-                    %i.glyphicon.glyphicon-time
-                    %small= timeago_tag issue.created_at
-        .proposition__related_issues--controll-group
-        나는 이 주장과 관련된 이슈가 있습니다.
-        = link_to '관련 이슈 만들기', new_issue_path(related_proposition_id: proposition)
-
+          = link_to proposition do
+            %i.glyphicon.glyphicon-link
+            관련 이슈 #{proposition.related_issues.count}개
+      .clearfix
+  .panel-body.proposition__stands--stats
+    %h5
+      %i.glyphicon.glyphicon-hand-up
+      사람들의 입장
+    .proposition__stands--stat
+      - if proposition.has_stands?
+        = Stand.choices.keys.select { |choice| proposition.stands_count_by(choice) > 0 }.map { |choice| "#{choice.to_sym} #{proposition.stands_count_by(choice)}명" }.join(', ')
+      - else
+        관련 입장이 없습니다.
+    .proposition__stands--graph
+      - Stand.choices.keys.each do |choice|
+        %span(class="proposition__stands--graph__choice--#{choice.to_sym}" style="width: #{proposition.stands_count_as_percent(choice.to_sym)}%" data-toggle="tooltip" data-placement="top" title="#{choice.to_sym} : #{proposition.stands_count_by(choice.to_sym)}명")
+    .proposition__stands--current-user
+      - if user_signed_in?
+        나는 이 주장에 대해
+        - if proposition.fetch_stand(current_user).present?
+          #{proposition.fetch_stand(current_user).choice} 입장입니다.
+          = link_to '입장 바꾸기', new_proposition_stand_path(proposition)
+        - else
+          아직 입장을 밝히지 않았습니다.
+          = link_to '입장 밝히기', new_proposition_stand_path(proposition)

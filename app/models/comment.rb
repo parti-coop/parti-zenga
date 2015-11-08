@@ -13,4 +13,8 @@ class Comment < ActiveRecord::Base
   def linkable_contents
     contents
   end
+
+  def stated_proposition
+    proposition
+  end
 end

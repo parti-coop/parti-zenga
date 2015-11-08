@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107072406) do
+ActiveRecord::Schema.define(version: 20151108001540) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "contents",       limit: 65535, null: false
@@ -61,14 +61,16 @@ ActiveRecord::Schema.define(version: 20151107072406) do
   add_index "propositions", ["user_id"], name: "index_propositions_on_user_id", using: :btree
 
   create_table "related_links", force: :cascade do |t|
-    t.integer "issue_id",    limit: 4,   null: false
-    t.integer "link_id",     limit: 4,   null: false
-    t.integer "source_id",   limit: 4,   null: false
-    t.string  "source_type", limit: 255, null: false
+    t.integer "issue_id",       limit: 4,   null: false
+    t.integer "link_id",        limit: 4,   null: false
+    t.integer "source_id",      limit: 4,   null: false
+    t.string  "source_type",    limit: 255, null: false
+    t.integer "proposition_id", limit: 4
   end
 
   add_index "related_links", ["issue_id"], name: "index_related_links_on_issue_id", using: :btree
   add_index "related_links", ["link_id"], name: "index_related_links_on_link_id", using: :btree
+  add_index "related_links", ["proposition_id"], name: "index_related_links_on_proposition_id", using: :btree
   add_index "related_links", ["source_id", "link_id"], name: "index_related_links_on_source_id_and_link_id", unique: true, using: :btree
   add_index "related_links", ["source_type", "source_id"], name: "index_related_links_on_source_type_and_source_id", using: :btree
 
@@ -98,14 +100,16 @@ ActiveRecord::Schema.define(version: 20151107072406) do
   add_index "stands", ["user_id"], name: "index_stands_on_user_id", using: :btree
 
   create_table "statuses", force: :cascade do |t|
-    t.integer  "issue_id",    limit: 4,   null: false
-    t.integer  "source_id",   limit: 4,   null: false
-    t.string   "source_type", limit: 255, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "issue_id",       limit: 4,   null: false
+    t.integer  "source_id",      limit: 4,   null: false
+    t.string   "source_type",    limit: 255, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "proposition_id", limit: 4
   end
 
   add_index "statuses", ["issue_id"], name: "index_statuses_on_issue_id", using: :btree
+  add_index "statuses", ["proposition_id"], name: "index_statuses_on_proposition_id", using: :btree
   add_index "statuses", ["source_type", "source_id"], name: "index_statuses_on_source_type_and_source_id", using: :btree
 
   create_table "users", force: :cascade do |t|

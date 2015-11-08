@@ -28,7 +28,7 @@ class CommentsTest < ActionDispatch::IntegrationTest
     log_in_as_user
 
     post issue_comments_path(issue_id: issue(:one),
-                             comment: { contents: 'content sample http://ogp.me' })
+                             comment: { contents: 'content sample http://ogp.me', proposition_id: proposition(:solution1) })
     assert_redirected_to issue_path(issue(:one))
 
     assert_equal 'content sample http://ogp.me', assigns(:comment).contents
@@ -38,6 +38,7 @@ class CommentsTest < ActionDispatch::IntegrationTest
                  assigns(:comment).links[0].description
     assert_equal 'http://ogp.me/logo.png',
                  assigns(:comment).links[0].image
+    assert_equal assigns(:comment).links[0], proposition(:solution1).reload.links[0]
 
     link_id = assigns(:comment).links[0].id
     post issue_comments_path(issue_id: issue(:one),

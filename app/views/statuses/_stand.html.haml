@@ -1,8 +1,8 @@
 %p
   - unless source.previous.present?
-    [ 주장 "#{source.proposition.title}" ] "#{source.choice}"합니다.
+    [ 주장 #{link_to source.proposition.title, source.proposition} ] "#{source.choice}"합니다.
   - else
-    [ 주장 "#{source.proposition.title}" ] "#{source.previous.choice}"에서 "#{source.choice}"로 변경합니다.
+    [ 주장 #{link_to source.proposition.title, source.proposition} ] "#{source.previous.choice}"에서 "#{source.choice}"로 변경합니다.
 - if source.description.present?
   %p= auto_link source.description
 %p

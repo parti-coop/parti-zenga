@@ -1,3 +1,7 @@
 status_comment1:
   issue: one
   source: comment1 (Comment)
+status_comment2:
+  issue: one
+  source: comment2 (Comment)
+  proposition: solution2

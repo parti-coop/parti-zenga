@@ -23,7 +23,7 @@ class CommentsTest < ActionDispatch::IntegrationTest
   test "replies with link" do
     log_in_as_user
 
-    post status_replies_path(status_id: comment(:comment1).status, reply: { contents: 'reply sample http://ogp.me' })
+    post status_replies_path(status_id: comment(:comment2).status, reply: { contents: 'reply sample http://ogp.me' })
 
     assert_equal 'reply sample http://ogp.me', assigns(:reply).contents
     assert_equal 'http://ogp.me', assigns(:reply).links[0].url
@@ -32,5 +32,6 @@ class CommentsTest < ActionDispatch::IntegrationTest
                  assigns(:reply).links[0].description
     assert_equal 'http://ogp.me/logo.png',
                  assigns(:reply).links[0].image
+    assert_equal assigns(:reply).links[0], comment(:comment2).proposition.reload.links[0]
   end
 end

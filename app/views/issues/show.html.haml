@@ -14,10 +14,14 @@
           의 주장 "#{@issue.related_proposition.title}"
     .panel-body
       %p This is a longer description. This content is a little bit longer.
-      %small.text-muted by #{@issue.user.email}, #{timeago_tag @issue.created_at}
+      %span.text-muted
+        %i.glyphicon.glyphicon-user
+        %small= @issue.user.email
+        %i.glyphicon.glyphicon-time
+        %small= timeago_tag @issue.created_at
 
 %section.container.issue__detail.row
-  %section.propositions-wrapper.col-md-5
+  %section.col-md-5
     %h2
       - if user_signed_in?
         = link_to '주장하기', new_issue_proposition_path(@issue), class: 'pull-right btn btn-default'

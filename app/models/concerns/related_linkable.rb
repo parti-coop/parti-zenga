@@ -26,6 +26,7 @@ module RelatedLinkable
       end
       related_links.new(
         issue: issue,
+        proposition: self.try(:proposition),
         source: self,
         link: link)
       url_text

@@ -1,6 +1,6 @@
 class Issue < ActiveRecord::Base
-  has_many :propositions
   has_many :statuses
+  has_many :propositions
   has_many :comments
   belongs_to :user
   belongs_to :related_proposition, class_name: Proposition

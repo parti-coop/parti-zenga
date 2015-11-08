@@ -15,6 +15,7 @@ module Statusable
   def create_status
     @status = issue.statuses.new
     @status.source = self
-    @status.save
+    @status.proposition = self.stated_proposition
+    @status.save!
   end
 end

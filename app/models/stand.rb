@@ -31,6 +31,10 @@ class Stand < ActiveRecord::Base
     description
   end
 
+  def stated_proposition
+    proposition
+  end
+
   private
   def active_current
     self.current = true
