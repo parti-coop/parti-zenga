@@ -3,8 +3,8 @@
   .timeline-panel
     .timeline-body.status__contents
       = yield
-    - if status.source.try(:related_links).try(:any?)
-      - status.source.links.each do |link|
+    - if status.source.try(:stated_links).try(:any?)
+      - status.source.stated_links.each do |link|
         - if link.has_meta?
           .timeline-footer
             = render link

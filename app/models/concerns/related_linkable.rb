@@ -11,6 +11,10 @@ module RelatedLinkable
     status.replies
   end
 
+  def stated_links
+    links
+  end
+
   private
 
   def new_related_links
