@@ -1,5 +1,6 @@
 %li{id: dom_id(status) }
   .timeline-badge{class: "status--#{status.source_type.underscore}__badge"}
+  %a.timeline-like(href='#')= rand(5..30)
   .timeline-panel
     .timeline-body.status__contents
       = yield
