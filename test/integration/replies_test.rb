@@ -6,12 +6,17 @@ class CommentsTest < ActionDispatch::IntegrationTest
   test "create replies" do
     log_in_as_user
 
-    post status_replies_path(status_id: comment(:comment1).status, reply: { contents: 'reply sample' })
+    fixture_updated_at = comment(:comment1).status.updated_at
+
+    Timecop.freeze(Date.today + 30) do
+      post status_replies_path(status_id: comment(:comment1).status, reply: { contents: 'reply sample' })
+    end
     assert_redirected_to issue_path(issue(:one))
 
     assert_equal 'reply sample', assigns(:reply).contents
     assert_equal users(:user), assigns(:reply).user
     assert_equal comment(:comment1).status, assigns(:reply).status
+    assert_not_equal fixture_updated_at, assigns(:status).updated_at
   end
 
   test "cannot create a reply by anonymous user" do

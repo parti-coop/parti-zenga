@@ -30,6 +30,7 @@ group :test do
   gem 'guard-minitest',     '~> 2.4.4'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'show_in_browser'
+  gem 'timecop', '~> 0.8.0'
 end
 
 group :development do
