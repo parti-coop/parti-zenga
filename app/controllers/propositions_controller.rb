@@ -1,5 +1,5 @@
 class PropositionsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
   before_action :issue, only: [:new, :create]
 
   def show

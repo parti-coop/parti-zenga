@@ -19,60 +19,63 @@
         %small= timeago_tag @issue.created_at
 
 %section.container.issue__detail.row
-  %section.col-md-5
-    %h2
-      .pull-right
-        .btn-group
-          = link_to '관심순', @issue, class: "btn btn-default #{'active' if @propositions_order != 'latest'}"
-          = link_to '최신순', issue_path(@issue, propositions_order: 'latest'), class: "btn btn-default #{'active' if @propositions_order == 'latest'}"
-        - if user_signed_in?
-          = link_to '주장하기', new_issue_proposition_path(@issue), class: 'btn btn-default'
-      %i.glyphicon.glyphicon-bullhorn
-      주장
-      .clearfix
-    - if @issue.propositions.any?
-      .propositions
-        - @propositions.each do |proposition|
-          = render proposition
-      %nav.text-center
-        %ul.pagination
-          %li
-            = link_to issue_path(@issue, propositions_order: @propositions_order) do
-              %span &laquo;
-          %li.active
-            %a(href="#") 1
-          %li
-            %a(href="#") 2
-          %li
-            %a(href="#") 3
-          %li
-            %a(href="#") 4
-          %li
-            %a(href="#") 5
-          %li
-            = link_to issue_path(@issue, propositions_order: @propositions_order) do
-              %span &raquo;
-    - else
-      아직 주장이 없습니다.
+  .col-md-5
+    %section
+      %h2
+        .pull-right
+          .btn-group
+            = link_to '관심순', @issue, class: "btn btn-default #{'active' if @propositions_order != 'latest'}"
+            = link_to '최신순', issue_path(@issue, propositions_order: 'latest'), class: "btn btn-default #{'active' if @propositions_order == 'latest'}"
+          - if user_signed_in?
+            = link_to '주장하기', new_issue_proposition_path(@issue), class: 'btn btn-default'
+        %i.glyphicon.glyphicon-bullhorn
+        주장
+        .clearfix
+      - if @issue.propositions.any?
+        .propositions
+          - @propositions.each do |proposition|
+            = render proposition
+        %nav.text-center
+          %ul.pagination
+            %li
+              = link_to issue_path(@issue, propositions_order: @propositions_order) do
+                %span &laquo;
+            %li.active
+              %a(href="#") 1
+            %li
+              %a(href="#") 2
+            %li
+              %a(href="#") 3
+            %li
+              %a(href="#") 4
+            %li
+              %a(href="#") 5
+            %li
+              = link_to issue_path(@issue, propositions_order: @propositions_order) do
+                %span &raquo;
+      - else
+        아직 주장이 없습니다.
 
     - if @issue.links.any?
-      %h2
-        %i.glyphicon.glyphicon-paperclip
-        링크
-      %ul.list-group.links
-        - @issue.links.each do |link|
-          %li.list-group-item
-            = render link
+      %section
+        %h2
+          %i.glyphicon.glyphicon-paperclip
+          링크
+        %ul.list-group.links
+          - @issue.links.each do |link|
+            %li.list-group-item
+              = render link
 
-  %section.col-md-7
-    %h2
-      %i.glyphicon.glyphicon-list
-      타임라인
-    %ul.timeline.statuses
-      - if user_signed_in?
-        = render partial: 'comments/new', locals: { comment: @new_comment }
-      - @statuses.each do |status|
-        = render :partial => "statuses/#{status.source_type.underscore}",
-          locals: { status: status, source: status.source },
-          layout: "layouts/status"
+  .col-md-7
+    %section
+      %h2
+        %i.glyphicon.glyphicon-list
+        타임라인
+      %ul.timeline.statuses
+        - if user_signed_in?
+          = render partial: 'comments/new', locals: { comment: @new_comment }
+        - @statuses.each do |status|
+          = render :partial => "statuses/#{status.source_type.underscore}",
+            locals: { status: status, source: status.source },
+            layout: "layouts/status"
 

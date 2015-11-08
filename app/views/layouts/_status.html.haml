@@ -22,5 +22,6 @@
       - reply.links.each do |link|
         .timeline-footer
           = render link
-    .timeline-footer
-      = render partial: 'replies/new', locals: { status: status, reply: status.replies.new }
+    - if user_signed_in?
+      .timeline-footer
+        = render partial: 'replies/new', locals: { status: status, reply: status.replies.new }
