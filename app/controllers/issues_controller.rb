@@ -7,7 +7,8 @@ class IssuesController < ApplicationController
 
   def show
     @issue = Issue.find params[:id]
-    @propositions = @issue.propositions.hottest.limit(10)
+    @propositions = @issue.propositions.sort(params[:propositions_order]).limit(10)
+    @propositions_order = params[:propositions_order]
     @statuses = @issue.statuses.all
     @new_comment = @issue.comments.new
   end

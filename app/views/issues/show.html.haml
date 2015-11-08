@@ -21,10 +21,15 @@
 %section.container.issue__detail.row
   %section.col-md-5
     %h2
-      - if user_signed_in?
-        = link_to '주장하기', new_issue_proposition_path(@issue), class: 'pull-right btn btn-default'
+      .pull-right
+        .btn-group
+          = link_to '관심순', @issue, class: "btn btn-default #{'active' if @propositions_order != 'latest'}"
+          = link_to '최신순', issue_path(@issue, propositions_order: 'latest'), class: "btn btn-default #{'active' if @propositions_order == 'latest'}"
+        - if user_signed_in?
+          = link_to '주장하기', new_issue_proposition_path(@issue), class: 'btn btn-default'
       %i.glyphicon.glyphicon-bullhorn
       주장
+      .clearfix
     - if @issue.propositions.any?
       .propositions
         - @propositions.each do |proposition|

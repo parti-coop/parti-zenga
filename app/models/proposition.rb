@@ -9,7 +9,9 @@ class Proposition < ActiveRecord::Base
   has_many :links, through: :related_links
   has_many :statuses, foreign_key: :proposition_id
 
-  scope :hottest, -> { order(stands_count: :desc).order(id: :desc) }
+  scope :sort, ->(order_method) { order_method ||= :hottest; try(order_method.to_sym).order(id: :desc) }
+  scope :hottest, -> { order(stands_count: :desc) }
+  scope :latest, -> { order(created_at: :desc) }
 
   def fetch_stand(user)
     stands.current.find_by(user: user)
