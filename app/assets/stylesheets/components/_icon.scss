@@ -1,0 +1,14 @@
+.glyphicon-flapping {
+    -webkit-animation: webkitspin 3000ms ease-in 0ms infinite;
+    -webkit-animation: spin 3000ms ease-in 0ms infinite;
+}
+
+@-webkit-keyframes webkitspin {
+    from { -webkit-transform: rotateY(0deg);}
+    to { -webkit-transform: rotateY(360deg);}
+}
+
+@keyframes spin {
+    from { -webkit-transform: rotateY(0deg);}
+    to { -webkit-transform: rotateY(360deg);}
+}

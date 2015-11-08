@@ -11,3 +11,11 @@
     %small= source.user.email
     %i.glyphicon.glyphicon-time
     %small= timeago_tag source.created_at
+
+- if source.previous.present?
+  :javascript
+    $(document).on("ready page:change", function(){
+      setTimeout(function () {
+          $('##{dom_id(status)} .status--stand__badge').addClass('glyphicon-flapping');
+        }, Math.floor(Math.random() * 2000));
+    });
