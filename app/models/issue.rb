@@ -14,6 +14,6 @@ class Issue < ActiveRecord::Base
   end
 
   def max_stands_count_in_propositions
-    20 # fake!
+    propositions.maximum(:stands_count)
   end
 end
