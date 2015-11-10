@@ -7,8 +7,17 @@
   - @issues.each do |issue|
     .issue.panel.panel-default
       .panel-heading
+
         = link_to issue do
-          %h4= issue.title
+          %h4
+            - if issue.forked?
+              %i.glyphicon.glyphicon-random
+            = issue.title
+        - if issue.forked?
+          %h5
+            가지쳐진 이슈입니다. 원래 이슈는
+            = link_to '여기', issue.parent_issue
+            입니다.
         - if issue.related_proposition.present?
           %h5
             이슈 #{link_to issue.related_issue.title, issue.related_issue}의 주장 #{link_to issue.related_proposition.title, issue.related_proposition}과 관련되어 있습니다.

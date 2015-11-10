@@ -30,7 +30,6 @@ class CommentsTest < ActionDispatch::IntegrationTest
     post issue_comments_path(issue_id: issue(:one),
                              comment: { contents: 'content sample http://ogp.me', proposition_id: proposition(:solution1) })
     assert_redirected_to issue_path(issue(:one))
-
     assert_equal 'content sample http://ogp.me', assigns(:comment).contents
     assert_equal 'http://ogp.me', assigns(:comment).links[0].url
     assert_equal 'Open Graph protocol', assigns(:comment).links[0].title
@@ -38,9 +37,10 @@ class CommentsTest < ActionDispatch::IntegrationTest
                  assigns(:comment).links[0].description
     assert_equal 'http://ogp.me/logo.png',
                  assigns(:comment).links[0].image
-    assert_equal assigns(:comment).links[0], proposition(:solution1).reload.links[0]
 
     link_id = assigns(:comment).links[0].id
+    assert_includes proposition(:solution1).reload.links.map(&:id), link_id
+
     post issue_comments_path(issue_id: issue(:one),
                              comment: { contents: 'content sample2 http://ogp.me' })
     assert_equal link_id, assigns(:comment).links[0].id

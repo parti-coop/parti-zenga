@@ -1,0 +1,16 @@
+reply1:
+  contents: 'reply1 contents'
+  user: user
+  status: status_solution1
+reply2:
+  contents: 'reply2 contents'
+  user: user
+  status: status_solution1
+reply3:
+  contents: 'reply3 contents'
+  user: user
+  status: status_solution2
+reply4:
+  contents: 'reply4 contents'
+  user: user
+  status: status_solution2

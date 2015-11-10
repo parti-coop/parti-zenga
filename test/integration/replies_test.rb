@@ -37,6 +37,6 @@ class CommentsTest < ActionDispatch::IntegrationTest
                  assigns(:reply).links[0].description
     assert_equal 'http://ogp.me/logo.png',
                  assigns(:reply).links[0].image
-    assert_equal assigns(:reply).links[0], comment(:comment2).proposition.reload.links[0]
+    assert_includes comment(:comment2).proposition.reload.links.map(&:id), assigns(:reply).links[0].id
   end
 end

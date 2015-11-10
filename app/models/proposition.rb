@@ -13,6 +13,14 @@ class Proposition < ActiveRecord::Base
   scope :hottest, -> { order(stands_count: :desc) }
   scope :latest, -> { order(created_at: :desc) }
 
+  amoeba do
+    customize(lambda { |original, copy|
+      copy.created_at = original.created_at
+      copy.updated_at = original.updated_at
+      copy.status = original.status.amoeba_dup
+    })
+  end
+
   def fetch_stand(user)
     stands.current.find_by(user: user)
   end
@@ -32,5 +40,10 @@ class Proposition < ActiveRecord::Base
 
   def stated_proposition
     self
+  end
+
+  def remap_after_fork
+    self.statusable_copied = true
+    self.status.remap_after_fork self
   end
 end

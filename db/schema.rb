@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108001540) do
+ActiveRecord::Schema.define(version: 20151110064133) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "contents",       limit: 65535, null: false
@@ -32,8 +32,10 @@ ActiveRecord::Schema.define(version: 20151108001540) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.integer  "related_proposition_id", limit: 4
+    t.integer  "parent_issue_id",        limit: 4
   end
 
+  add_index "issues", ["parent_issue_id"], name: "index_issues_on_parent_issue_id", using: :btree
   add_index "issues", ["related_proposition_id"], name: "index_issues_on_related_proposition_id", using: :btree
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 

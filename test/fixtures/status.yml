@@ -5,3 +5,11 @@ status_comment2:
   issue: one
   source: comment2 (Comment)
   proposition: solution2
+status_solution1:
+  issue: one
+  source: solution1 (Proposition)
+  proposition: solution1
+status_solution2:
+  issue: one
+  source: solution2 (Proposition)
+  proposition: solution2

@@ -1,15 +1,32 @@
 %section.breadcrumb-wrapper
   %ol.breadcrumb
     %li= link_to 'Home', root_path
-    %li.active= @issue.title
+    %li.active
+      - if @issue.forked?
+        %i.glyphicon.glyphicon-random
+      = @issue.title
 
 %section.issue
   .panel.panel-default
     .panel-heading
-      %h4= @issue.title
-      - if @issue.related_proposition.present?
-        %h5
-          이슈 #{link_to @issue.related_issue.title, @issue.related_issue}의 주장 #{link_to @issue.related_proposition.title, @issue.related_proposition}과 관련되어 있습니다.
+      .pull-right
+        - if user_signed_in?
+          = link_to fork_issue_path(@issue), method: :post, class: 'btn btn-default' do
+            가지치기
+            %i.glyphicon.glyphicon-random
+      %h4
+        - if @issue.forked?
+          %i.glyphicon.glyphicon-random
+        = @issue.title
+        - if @issue.forked?
+          %h5
+            가지쳐진 이슈입니다. 원래 이슈는
+            = link_to '여기', @issue.parent_issue
+            입니다.
+        - if @issue.related_proposition.present?
+          %h5
+            이슈 #{link_to @issue.related_issue.title, @issue.related_issue}의 주장 #{link_to @issue.related_proposition.title, @issue.related_proposition}과 관련되어 있습니다.
+
     .panel-body
       %p This is a longer description. This content is a little bit longer.
       %span.text-muted

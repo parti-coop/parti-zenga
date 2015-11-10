@@ -17,6 +17,7 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.5.1'
 gem 'rails-timeago', '~> 2.12'
 gem 'link_thumbnailer', '~> 3.1'
 gem 'rails_autolink', '~> 1.1', '>= 1.1.6'
+gem 'amoeba', '~> 3.0'
 
 group :development, :test do
   gem 'byebug'

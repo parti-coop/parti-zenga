@@ -1,0 +1,38 @@
+related1:
+  source: comment1 (Comment)
+  link: daum
+  issue: one
+related2:
+  source: comment1 (Comment)
+  link: naver
+  issue: one
+related3:
+  source: comment2 (Comment)
+  link: daum
+  issue: one
+  proposition: solution2
+related4:
+  source: comment2 (Comment)
+  link: naver
+  issue: one
+  proposition: solution2
+related5:
+  source: reply1 (Reply)
+  link: daum
+  issue: one
+  proposition: solution1
+related6:
+  source: reply2 (Reply)
+  link: naver
+  issue: one
+  proposition: solution1
+related7:
+  source: reply3 (Reply)
+  link: daum
+  issue: one
+  proposition: solution2
+related8:
+  source: reply4 (Reply)
+  link: naver
+  issue: one
+  proposition: solution2

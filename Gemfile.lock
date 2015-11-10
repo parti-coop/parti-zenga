@@ -37,6 +37,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
+    amoeba (3.0.0)
+      activerecord (>= 3.2.6)
     ansi (1.5.0)
     arel (6.0.3)
     ast (2.1.0)
@@ -268,6 +270,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  amoeba (~> 3.0)
   bcrypt (~> 3.1.7)
   bootstrap-sass (~> 3.3, >= 3.3.5.1)
   byebug

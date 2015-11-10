@@ -35,6 +35,14 @@ class IssuesController < ApplicationController
     end
   end
 
+  def fork
+    @issue = Issue.find params[:id]
+    @copy = @issue.fork
+    @copy.parent_issue = @issue
+    @copy.save!
+    redirect_to @copy
+  end
+
   private
 
   def create_params
