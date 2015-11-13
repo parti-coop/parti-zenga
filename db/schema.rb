@@ -14,122 +14,122 @@
 ActiveRecord::Schema.define(version: 20151110064133) do
 
   create_table "comments", force: :cascade do |t|
-    t.text     "contents",       limit: 65535, null: false
-    t.integer  "issue_id",       limit: 4,     null: false
-    t.integer  "user_id",        limit: 4,     null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "proposition_id", limit: 4
+    t.text     "contents",       null: false
+    t.integer  "issue_id",       null: false
+    t.integer  "user_id",        null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "proposition_id"
   end
 
-  add_index "comments", ["issue_id"], name: "index_comments_on_issue_id", using: :btree
-  add_index "comments", ["proposition_id"], name: "index_comments_on_proposition_id", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+  add_index "comments", ["issue_id"], name: "index_comments_on_issue_id"
+  add_index "comments", ["proposition_id"], name: "index_comments_on_proposition_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "issues", force: :cascade do |t|
-    t.string   "title",                  limit: 255, null: false
-    t.integer  "user_id",                limit: 4,   null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "related_proposition_id", limit: 4
-    t.integer  "parent_issue_id",        limit: 4
+    t.string   "title",                  null: false
+    t.integer  "user_id",                null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "related_proposition_id"
+    t.integer  "parent_issue_id"
   end
 
-  add_index "issues", ["parent_issue_id"], name: "index_issues_on_parent_issue_id", using: :btree
-  add_index "issues", ["related_proposition_id"], name: "index_issues_on_related_proposition_id", using: :btree
-  add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
+  add_index "issues", ["parent_issue_id"], name: "index_issues_on_parent_issue_id"
+  add_index "issues", ["related_proposition_id"], name: "index_issues_on_related_proposition_id"
+  add_index "issues", ["user_id"], name: "index_issues_on_user_id"
 
   create_table "links", force: :cascade do |t|
-    t.string   "url",         limit: 255,   null: false
-    t.text     "title",       limit: 65535
-    t.text     "description", limit: 65535
-    t.text     "image",       limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "url",         null: false
+    t.text     "title"
+    t.text     "description"
+    t.text     "image"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "links", ["url"], name: "index_links_on_url", using: :btree
+  add_index "links", ["url"], name: "index_links_on_url"
 
   create_table "propositions", force: :cascade do |t|
-    t.string   "title",        limit: 255,             null: false
-    t.integer  "issue_id",     limit: 4,               null: false
-    t.integer  "user_id",      limit: 4,               null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.integer  "stands_count", limit: 4,   default: 0, null: false
-  end
-
-  add_index "propositions", ["issue_id"], name: "index_propositions_on_issue_id", using: :btree
-  add_index "propositions", ["user_id"], name: "index_propositions_on_user_id", using: :btree
-
-  create_table "related_links", force: :cascade do |t|
-    t.integer "issue_id",       limit: 4,   null: false
-    t.integer "link_id",        limit: 4,   null: false
-    t.integer "source_id",      limit: 4,   null: false
-    t.string  "source_type",    limit: 255, null: false
-    t.integer "proposition_id", limit: 4
-  end
-
-  add_index "related_links", ["issue_id"], name: "index_related_links_on_issue_id", using: :btree
-  add_index "related_links", ["link_id"], name: "index_related_links_on_link_id", using: :btree
-  add_index "related_links", ["proposition_id"], name: "index_related_links_on_proposition_id", using: :btree
-  add_index "related_links", ["source_id", "link_id"], name: "index_related_links_on_source_id_and_link_id", unique: true, using: :btree
-  add_index "related_links", ["source_type", "source_id"], name: "index_related_links_on_source_type_and_source_id", using: :btree
-
-  create_table "replies", force: :cascade do |t|
-    t.text     "contents",   limit: 65535, null: false
-    t.integer  "status_id",  limit: 4,     null: false
-    t.integer  "user_id",    limit: 4,     null: false
+    t.string   "title",                    null: false
+    t.integer  "issue_id",                 null: false
+    t.integer  "user_id",                  null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "stands_count", default: 0, null: false
   end
 
-  add_index "replies", ["status_id"], name: "index_replies_on_status_id", using: :btree
-  add_index "replies", ["user_id"], name: "index_replies_on_user_id", using: :btree
+  add_index "propositions", ["issue_id"], name: "index_propositions_on_issue_id"
+  add_index "propositions", ["user_id"], name: "index_propositions_on_user_id"
+
+  create_table "related_links", force: :cascade do |t|
+    t.integer "issue_id",       null: false
+    t.integer "link_id",        null: false
+    t.integer "source_id",      null: false
+    t.string  "source_type",    null: false
+    t.integer "proposition_id"
+  end
+
+  add_index "related_links", ["issue_id"], name: "index_related_links_on_issue_id"
+  add_index "related_links", ["link_id"], name: "index_related_links_on_link_id"
+  add_index "related_links", ["proposition_id"], name: "index_related_links_on_proposition_id"
+  add_index "related_links", ["source_id", "link_id"], name: "index_related_links_on_source_id_and_link_id", unique: true
+  add_index "related_links", ["source_type", "source_id"], name: "index_related_links_on_source_type_and_source_id"
+
+  create_table "replies", force: :cascade do |t|
+    t.text     "contents",   null: false
+    t.integer  "status_id",  null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "replies", ["status_id"], name: "index_replies_on_status_id"
+  add_index "replies", ["user_id"], name: "index_replies_on_user_id"
 
   create_table "stands", force: :cascade do |t|
-    t.integer  "choice",         limit: 4,                    null: false
-    t.boolean  "current",                      default: true
-    t.integer  "previous_id",    limit: 4
-    t.integer  "proposition_id", limit: 4,                    null: false
-    t.integer  "user_id",        limit: 4,                    null: false
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
-    t.text     "description",    limit: 65535
+    t.integer  "choice",                        null: false
+    t.boolean  "current",        default: true
+    t.integer  "previous_id"
+    t.integer  "proposition_id",                null: false
+    t.integer  "user_id",                       null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.text     "description"
   end
 
-  add_index "stands", ["proposition_id"], name: "index_stands_on_proposition_id", using: :btree
-  add_index "stands", ["user_id"], name: "index_stands_on_user_id", using: :btree
+  add_index "stands", ["proposition_id"], name: "index_stands_on_proposition_id"
+  add_index "stands", ["user_id"], name: "index_stands_on_user_id"
 
   create_table "statuses", force: :cascade do |t|
-    t.integer  "issue_id",       limit: 4,   null: false
-    t.integer  "source_id",      limit: 4,   null: false
-    t.string   "source_type",    limit: 255, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "proposition_id", limit: 4
+    t.integer  "issue_id",       null: false
+    t.integer  "source_id",      null: false
+    t.string   "source_type",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "proposition_id"
   end
 
-  add_index "statuses", ["issue_id"], name: "index_statuses_on_issue_id", using: :btree
-  add_index "statuses", ["proposition_id"], name: "index_statuses_on_proposition_id", using: :btree
-  add_index "statuses", ["source_type", "source_id"], name: "index_statuses_on_source_type_and_source_id", using: :btree
+  add_index "statuses", ["issue_id"], name: "index_statuses_on_issue_id"
+  add_index "statuses", ["proposition_id"], name: "index_statuses_on_proposition_id"
+  add_index "statuses", ["source_type", "source_id"], name: "index_statuses_on_source_type_and_source_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
